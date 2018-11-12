@@ -13,10 +13,6 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
         
-        Kirjanpito kirjanpito = (Kirjanpito) ctx.getBean("kirjanpito");
-        Varasto varasto = (Varasto) ctx.getBean("varasto");
-        Pankki pankki = (Pankki) ctx.getBean("pankki");
-        Viitegeneraattori generaattori = (Viitegeneraattori) ctx.getBean("generaattori");
         Kauppa kauppa = (Kauppa) ctx.getBean("kauppa");
         
         // kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:
@@ -36,7 +32,7 @@ public class Main {
         kauppa.tilimaksu("Arto Vihavainen", "3425-1652");
 
         // kirjanpito
-        for (String tapahtuma : varasto.getKirjanpito().getTapahtumat()) {
+        for (String tapahtuma : ((Varasto) ctx.getBean("varasto")).getKirjanpito().getTapahtumat()) {
             System.out.println(tapahtuma);
         }
     }
